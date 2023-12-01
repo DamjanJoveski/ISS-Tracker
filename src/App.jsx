@@ -1,4 +1,4 @@
-import {EarthGlobe} from "./assets/EarthGlobe.jsx";
+import {EarthGlobe} from "./EarthGlobe.jsx";
 
 export default function App() {
     return (
