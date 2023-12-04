@@ -1,5 +1,6 @@
 import './InfoCard.css'
-import {useEffect, useState} from "react";
+import {useEffect, useRef, useState} from "react";
+import {isMobile} from 'react-device-detect';
 export function InfoCard() {
 
     const [people, setPeople] = useState([]);
@@ -23,13 +24,29 @@ export function InfoCard() {
         fetchData();
     }, []);
 
+    let isRotated = false;
+
+    function mobileClickHandler() {
+        const card = cardElement.current;
+        if (!isRotated) {
+            card.style.transform = 'rotateY(180deg)';
+        } else {
+            card.style.transform = 'rotateY(0deg)';
+        }
+        isRotated = !isRotated;
+    }
+
+
+    const cardElement = useRef()
+
+
     return (
-        <div className="myCard">
-            <div className="innerCard">
+        <div className="myCard" onClick={mobileClickHandler} >
+            <div className="innerCard" ref={cardElement}>
                 <div className="frontSide">
                     <p className="title">Number of people onboard</p>
                     <p>{people.length}</p>
-                    <p>Hover me for their names</p>
+                    <p className="actionText">{isMobile ? 'Click me for their names' : 'Hover me for their names'}</p>
                 </div>
                 <div className="backSide">
                     <ul className="people">
